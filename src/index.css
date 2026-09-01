@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap');
+@import "tailwindcss";
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Splash screen wordmark fade — timing must stay in sync with FADE_START/FADE_END in
+   SplashScreen.tsx (the canvas logo fades on the same 1s window via its own easing). */
+@keyframes fexa-splash-fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font: 16px/1.4 system-ui, 'Segoe UI', Roboto, sans-serif;
+  user-select: none;
+}
