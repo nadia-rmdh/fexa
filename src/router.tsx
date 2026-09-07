@@ -11,11 +11,15 @@ import { EventsScreen } from './features/admin/screens/EventsScreen'
 import { BackupScreen } from './features/admin/screens/BackupScreen'
 import { SyncScreen } from './features/sync/screens/SyncScreen'
 import { ReportingScreen } from './features/reporting/screens/ReportingScreen'
+import { HelpScreen } from './features/help/screens/HelpScreen'
 
 export function AppRouter() {
   return (
     <HashRouter>
       <Routes>
+        {/* Standalone — no shared AppLayout chrome (no bottom tab bar), so this reads
+            as its own destination rather than another tab of the POS app. */}
+        <Route path="/guide" element={<HelpScreen />} />
         <Route element={<AppLayout />}>
           <Route index element={<Navigate to="/checkout" replace />} />
           <Route path="/checkout" element={<CheckoutScreen />} />
