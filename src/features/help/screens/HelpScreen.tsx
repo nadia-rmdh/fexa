@@ -142,7 +142,7 @@ export function HelpScreen() {
       <div className="mx-auto max-w-3xl p-4 pb-16">
         <a href="#/checkout" className="mb-6 inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M15 6l-6 6 6 6" /></svg>
-          Back to FEXA
+          to FEXA - POS for Art Market Booth
         </a>
         <div className="mb-6">
           <div className="mb-1 flex items-center gap-2">
@@ -151,12 +151,11 @@ export function HelpScreen() {
               style={{ background: 'conic-gradient(from -90deg, #6DBFF3 0deg 180deg, #CD7D3C 180deg 360deg)' }}
               aria-hidden="true"
             />
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-500">Field Guide</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-500">FEXA's User Manual</span>
           </div>
-          <h1 className="text-2xl font-bold">Running the booth on FEXA</h1>
+          <h1 className="text-2xl font-bold">Getting started with FEXA</h1>
           <p className="mt-1 max-w-[54ch] text-sm text-zinc-500 dark:text-zinc-400">
-            Everything a helper needs to work a shift, plus the full reference for how the catalog, bundles, and events
-            behind it fit together.
+            Set up your catalog and bundle deals, start an event, then run the shift — in that order.
           </p>
         </div>
 
@@ -168,172 +167,29 @@ export function HelpScreen() {
             the router entirely. */}
         <button
           type="button"
-          onClick={() => document.getElementById('shift')?.scrollIntoView({ behavior: 'smooth' })}
-          className="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm font-medium dark:border-zinc-700 dark:bg-zinc-800"
-        >
-          Running a Shift
-        </button>
-        <button
-          type="button"
           onClick={() => document.getElementById('reference')?.scrollIntoView({ behavior: 'smooth' })}
           className="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm font-medium dark:border-zinc-700 dark:bg-zinc-800"
         >
-          Full Reference
+          1. Set Up
+        </button>
+        <button
+          type="button"
+          onClick={() => document.getElementById('shift')?.scrollIntoView({ behavior: 'smooth' })}
+          className="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm font-medium dark:border-zinc-700 dark:bg-zinc-800"
+        >
+          2. Run a Shift
         </button>
       </div>
 
-      {/* ============ PART 1 ============ */}
-      <h2 id="shift" className="scroll-mt-16 mb-1 text-xl font-bold">
-        Running a Shift
+      {/* ============ PART 1: SET UP (formerly "Full Reference") ============ */}
+      <h2 id="reference" className="scroll-mt-16 mb-1 text-xl font-bold">
+        Set Up FEXA
       </h2>
       <p className="mb-5 max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
-        Read this before your first shift. It covers everything you'll actually touch at the booth — nothing about
-        setting the catalog up.
+        Do this once, before your first sale — build the catalog, configure bundle deals, and start an event.
       </p>
 
       <div className="mb-4 flex flex-col gap-4">
-        <Section
-          id="checkout-screen"
-          eyebrow="Home base"
-          title="The checkout screen"
-          intro="Tap a numbered spot on the mockup, or a line on the right, to see them line up."
-        >
-          <HotspotDiagram
-            hotspots={[
-              { id: '1', top: '9%', left: '18%', title: 'Category pills', body: 'Jump to another category without going back — the current one stays highlighted.' },
-              { id: '2', top: '42%', left: '58%', title: 'Stock count', body: 'The number is what’s left. Amber means it’s running low.' },
-              { id: '3', top: '42%', left: '92%', title: '"Out" badge', body: 'Still shown so you know it exists — tapping it does nothing. See "Sold Out ≠ Gone."' },
-              { id: '4', top: '66%', left: '15%', title: 'Bundle badge', body: 'Appears the moment a discount applies — you never have to spot it yourself.' },
-              { id: '5', top: '96%', left: '50%', title: 'Checkout', body: 'Opens the payment step. The total already includes every bundle.' },
-            ]}
-            mock={
-              <div>
-                <div className="mb-2 flex gap-1.5 overflow-hidden">
-                  <span className="shrink-0 rounded-full bg-zinc-800 px-3 py-1 text-xs font-medium text-white dark:bg-zinc-100 dark:text-zinc-900">Keychain</span>
-                  <span className="shrink-0 rounded-full bg-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300">Sticker</span>
-                  <span className="shrink-0 rounded-full bg-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300">Zine</span>
-                </div>
-                <div className="mb-3 text-xs text-zinc-400">
-                  Categories / <span className="font-medium text-zinc-600 dark:text-zinc-300">Keychain</span> / Genshin
-                </div>
-                <div className="mb-3 grid grid-cols-3 gap-2">
-                  <div className="relative flex aspect-square items-end overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
-                    <span className="absolute right-1 top-1 rounded-full bg-zinc-900/80 px-1.5 py-0.5 text-[10px] font-semibold text-white">9</span>
-                    <span className="w-full bg-black/60 px-1 py-1 text-[11px] font-medium text-white">Childe</span>
-                  </div>
-                  <div className="relative flex aspect-square items-end overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
-                    <span className="absolute right-1 top-1 rounded-full bg-amber-500 px-1.5 py-0.5 text-[10px] font-semibold text-white">2</span>
-                    <span className="w-full bg-black/60 px-1 py-1 text-[11px] font-medium text-white">Zhongli</span>
-                  </div>
-                  <div className="relative flex aspect-square items-end overflow-hidden rounded-xl border border-zinc-200 bg-white opacity-50 shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
-                    <span className="absolute right-1 top-1 rounded-full bg-zinc-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">Out</span>
-                    <span className="w-full bg-black/60 px-1 py-1 text-[11px] font-medium text-white">Wrio</span>
-                  </div>
-                </div>
-                <div className="rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-700 dark:bg-zinc-900">
-                  <div className="mb-2 flex items-center justify-between rounded-lg bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                    <span>Bundle: Zine Set</span><span>IDR 100,000</span>
-                  </div>
-                  <div className="flex justify-between border-b border-zinc-100 py-1 text-xs dark:border-zinc-800">
-                    <span>Keychain · Genshin<span className="block text-zinc-400">Childe</span></span><span>IDR 55,000</span>
-                  </div>
-                  <div className="flex justify-between py-1 text-xs">
-                    <span>Zine · Genshin<span className="block text-zinc-400">Childe</span></span><span>IDR 45,000</span>
-                  </div>
-                  <div className="mt-2 flex justify-between border-t border-zinc-100 pt-2 text-sm font-bold dark:border-zinc-800">
-                    <span>Total</span><span>IDR 100,000</span>
-                  </div>
-                  <div className="mt-3 rounded-lg bg-zinc-900 py-2 text-center text-sm font-semibold text-white dark:bg-zinc-100 dark:text-zinc-900">Checkout</div>
-                </div>
-              </div>
-            }
-          />
-        </Section>
-
-        <Section id="adding-items" eyebrow="Three taps" title="Adding an item to the cart" intro="Always the same order. Tapping a design adds one unit — tap it again for a second.">
-          <Flow
-            steps={[
-              {
-                icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>),
-                title: 'Category', sub: 'Keychain, Sticker, Zine…',
-              },
-              {
-                icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4v16M4 4h13l-2.5 4L17 12H4" /></svg>),
-                title: 'Fandom', sub: 'Which series/show',
-              },
-              {
-                icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="3.4" /><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" /></svg>),
-                title: 'Design', sub: 'Tap to add — again for +1',
-              },
-            ]}
-          />
-        </Section>
-
-        <Section id="bundles" eyebrow="No menu to open" title="Bundles happen automatically" intro="Add items normally — if a deal applies, the cart re-prices itself and shows what changed.">
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="min-w-[180px] flex-1">
-              <h4 className="mb-2 text-xs font-bold uppercase tracking-wide text-zinc-400">Added separately</h4>
-              <div className="flex justify-between py-1 text-sm"><span>Keychain · Childe</span><span className="text-zinc-400 line-through">IDR 55,000</span></div>
-              <div className="flex justify-between py-1 text-sm"><span>Zine · Childe</span><span className="text-zinc-400 line-through">IDR 45,000</span></div>
-              <div className="flex justify-between py-1 text-sm font-bold"><span>À la carte total</span><span className="text-zinc-400 line-through">IDR 100,000</span></div>
-            </div>
-            <Arrow />
-            <div className="min-w-[180px] flex-1">
-              <h4 className="mb-2 text-xs font-bold uppercase tracking-wide text-zinc-400">What the cart shows</h4>
-              <div className="flex justify-between py-1 text-sm font-bold"><span>Bundle: Zine Set</span><span>IDR 90,000</span></div>
-              <span className="mt-2 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                Saved IDR 10,000
-              </span>
-            </div>
-          </div>
-        </Section>
-
-        <Section id="payment" eyebrow="Two paths" title="Taking payment" intro="Cash and QR. Cash has one extra, optional field.">
-          <HotspotDiagram
-            hotspots={[
-              { id: 'p1', top: '27%', left: '20%', title: 'Cash or QR', body: 'Pick one — the field below only shows up for Cash.' },
-              { id: 'p2', top: '60%', left: '78%', title: 'Cash received', body: 'Type what the customer physically handed you. Leave it blank if they gave exact change.' },
-              { id: 'p3', top: '92%', left: '45%', title: 'Change due', body: 'Updates as you type, and prints on the receipt — no mental math.' },
-            ]}
-            mock={
-              <div className="rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-700 dark:bg-zinc-900">
-                <div className="mb-3 text-center text-xl font-bold">IDR 54,000</div>
-                <div className="mb-3 grid grid-cols-2 gap-2">
-                  <div className="rounded-lg border-2 border-zinc-900 bg-zinc-100 py-3 text-center text-sm font-medium dark:border-zinc-100 dark:bg-zinc-800">Cash</div>
-                  <div className="rounded-lg border-2 border-zinc-200 py-3 text-center text-sm font-medium dark:border-zinc-700">QR</div>
-                </div>
-                <div className="mb-1 text-xs font-medium text-zinc-500">Cash received (leave blank for exact change)</div>
-                <div className="mb-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-400 dark:border-zinc-700">IDR 100,000</div>
-                <div className="text-xs text-zinc-500">
-                  Change due: <span className="font-bold text-emerald-600 dark:text-emerald-400">IDR 46,000</span>
-                </div>
-              </div>
-            }
-          />
-        </Section>
-
-        <Section id="sold-out" eyebrow="Not deleted, just empty" title="Sold out ≠ gone" intro="An item that started the event with stock but has since run out doesn't disappear — it just can't be added anymore, so you can still tell a customer 'yes, we carry that, but we're out.'">
-          <div className="max-w-[110px]">
-            <div className="relative flex aspect-square items-end overflow-hidden rounded-xl border border-zinc-200 bg-white opacity-50 shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
-              <span className="absolute right-1 top-1 rounded-full bg-zinc-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">Out</span>
-              <span className="w-full bg-black/60 px-1 py-1 text-[11px] font-medium text-white">Wrio</span>
-            </div>
-          </div>
-          <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
-            Only an admin can bring more of it in mid-event, from <b>Admin → Events → Add Item to Stock</b>.
-          </p>
-        </Section>
-      </div>
-
-      {/* ============ PART 2 ============ */}
-      <h2 id="reference" className="scroll-mt-16 mb-1 mt-10 text-xl font-bold">
-        Full Reference
-      </h2>
-      <p className="mb-5 max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
-        The part behind the part above — how the catalog, bundle deals, and events are actually built and maintained.
-      </p>
-
-      <div className="flex flex-col gap-4">
         <Section id="catalog" eyebrow="01 — Catalog" title="Building the catalog" intro="Four layers plus an optional label, always built in this order, since each one depends on the last:">
           <Chain
             nodes={[
@@ -501,6 +357,148 @@ export function HelpScreen() {
               { icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2 2 19h20L12 2z" /><path d="M12 9v5M12 17h.01" strokeLinecap="round" /></svg>), title: 'Zero signal, no problem', sub: 'Opens and sells like any app' },
             ]}
           />
+        </Section>
+      </div>
+
+      {/* ============ PART 2: RUN A SHIFT (formerly "Running a Shift", now second) ============ */}
+      <h2 id="shift" className="scroll-mt-16 mb-1 mt-10 text-xl font-bold">
+        Now, Run a Shift
+      </h2>
+      <p className="mb-5 max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
+        Once everything above is set up, here's exactly what happens once you're actually selling.
+      </p>
+
+      <div className="mb-4 flex flex-col gap-4">
+        <Section
+          id="checkout-screen"
+          eyebrow="Home base"
+          title="The checkout screen"
+          intro="Tap a numbered spot on the mockup, or a line on the right, to see them line up."
+        >
+          <HotspotDiagram
+            hotspots={[
+              { id: '1', top: '9%', left: '18%', title: 'Category pills', body: 'Jump to another category without going back — the current one stays highlighted.' },
+              { id: '2', top: '42%', left: '58%', title: 'Stock count', body: 'The number is what’s left. Amber means it’s running low.' },
+              { id: '3', top: '42%', left: '92%', title: '"Out" badge', body: 'Still shown so you know it exists — tapping it does nothing. See "Sold Out ≠ Gone."' },
+              { id: '4', top: '66%', left: '15%', title: 'Bundle badge', body: 'Appears the moment a discount applies — you never have to spot it yourself.' },
+              { id: '5', top: '96%', left: '50%', title: 'Checkout', body: 'Opens the payment step. The total already includes every bundle.' },
+            ]}
+            mock={
+              <div>
+                <div className="mb-2 flex gap-1.5 overflow-hidden">
+                  <span className="shrink-0 rounded-full bg-zinc-800 px-3 py-1 text-xs font-medium text-white dark:bg-zinc-100 dark:text-zinc-900">Keychain</span>
+                  <span className="shrink-0 rounded-full bg-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300">Sticker</span>
+                  <span className="shrink-0 rounded-full bg-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300">Zine</span>
+                </div>
+                <div className="mb-3 text-xs text-zinc-400">
+                  Categories / <span className="font-medium text-zinc-600 dark:text-zinc-300">Keychain</span> / Genshin
+                </div>
+                <div className="mb-3 grid grid-cols-3 gap-2">
+                  <div className="relative flex aspect-square items-end overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
+                    <span className="absolute right-1 top-1 rounded-full bg-zinc-900/80 px-1.5 py-0.5 text-[10px] font-semibold text-white">9</span>
+                    <span className="w-full bg-black/60 px-1 py-1 text-[11px] font-medium text-white">Childe</span>
+                  </div>
+                  <div className="relative flex aspect-square items-end overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
+                    <span className="absolute right-1 top-1 rounded-full bg-amber-500 px-1.5 py-0.5 text-[10px] font-semibold text-white">2</span>
+                    <span className="w-full bg-black/60 px-1 py-1 text-[11px] font-medium text-white">Zhongli</span>
+                  </div>
+                  <div className="relative flex aspect-square items-end overflow-hidden rounded-xl border border-zinc-200 bg-white opacity-50 shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
+                    <span className="absolute right-1 top-1 rounded-full bg-zinc-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">Out</span>
+                    <span className="w-full bg-black/60 px-1 py-1 text-[11px] font-medium text-white">Wrio</span>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-700 dark:bg-zinc-900">
+                  <div className="mb-2 flex items-center justify-between rounded-lg bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+                    <span>Bundle: Zine Set</span><span>IDR 100,000</span>
+                  </div>
+                  <div className="flex justify-between border-b border-zinc-100 py-1 text-xs dark:border-zinc-800">
+                    <span>Keychain · Genshin<span className="block text-zinc-400">Childe</span></span><span>IDR 55,000</span>
+                  </div>
+                  <div className="flex justify-between py-1 text-xs">
+                    <span>Zine · Genshin<span className="block text-zinc-400">Childe</span></span><span>IDR 45,000</span>
+                  </div>
+                  <div className="mt-2 flex justify-between border-t border-zinc-100 pt-2 text-sm font-bold dark:border-zinc-800">
+                    <span>Total</span><span>IDR 100,000</span>
+                  </div>
+                  <div className="mt-3 rounded-lg bg-zinc-900 py-2 text-center text-sm font-semibold text-white dark:bg-zinc-100 dark:text-zinc-900">Checkout</div>
+                </div>
+              </div>
+            }
+          />
+        </Section>
+
+        <Section id="adding-items" eyebrow="Three taps" title="Adding an item to the cart" intro="Always the same order. Tapping a design adds one unit — tap it again for a second.">
+          <Flow
+            steps={[
+              {
+                icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>),
+                title: 'Category', sub: 'Keychain, Sticker, Zine…',
+              },
+              {
+                icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4v16M4 4h13l-2.5 4L17 12H4" /></svg>),
+                title: 'Fandom', sub: 'Which series/show',
+              },
+              {
+                icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="3.4" /><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" /></svg>),
+                title: 'Design', sub: 'Tap to add — again for +1',
+              },
+            ]}
+          />
+        </Section>
+
+        <Section id="bundles" eyebrow="No menu to open" title="Bundles happen automatically" intro="Add items normally — if a deal applies, the cart re-prices itself and shows what changed.">
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="min-w-[180px] flex-1">
+              <h4 className="mb-2 text-xs font-bold uppercase tracking-wide text-zinc-400">Added separately</h4>
+              <div className="flex justify-between py-1 text-sm"><span>Keychain · Childe</span><span className="text-zinc-400 line-through">IDR 55,000</span></div>
+              <div className="flex justify-between py-1 text-sm"><span>Zine · Childe</span><span className="text-zinc-400 line-through">IDR 45,000</span></div>
+              <div className="flex justify-between py-1 text-sm font-bold"><span>À la carte total</span><span className="text-zinc-400 line-through">IDR 100,000</span></div>
+            </div>
+            <Arrow />
+            <div className="min-w-[180px] flex-1">
+              <h4 className="mb-2 text-xs font-bold uppercase tracking-wide text-zinc-400">What the cart shows</h4>
+              <div className="flex justify-between py-1 text-sm font-bold"><span>Bundle: Zine Set</span><span>IDR 90,000</span></div>
+              <span className="mt-2 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+                Saved IDR 10,000
+              </span>
+            </div>
+          </div>
+        </Section>
+
+        <Section id="payment" eyebrow="Two paths" title="Taking payment" intro="Cash and QR. Cash has one extra, optional field.">
+          <HotspotDiagram
+            hotspots={[
+              { id: 'p1', top: '27%', left: '20%', title: 'Cash or QR', body: 'Pick one — the field below only shows up for Cash.' },
+              { id: 'p2', top: '60%', left: '78%', title: 'Cash received', body: 'Type what the customer physically handed you. Leave it blank if they gave exact change.' },
+              { id: 'p3', top: '92%', left: '45%', title: 'Change due', body: 'Updates as you type, and prints on the receipt — no mental math.' },
+            ]}
+            mock={
+              <div className="rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-700 dark:bg-zinc-900">
+                <div className="mb-3 text-center text-xl font-bold">IDR 54,000</div>
+                <div className="mb-3 grid grid-cols-2 gap-2">
+                  <div className="rounded-lg border-2 border-zinc-900 bg-zinc-100 py-3 text-center text-sm font-medium dark:border-zinc-100 dark:bg-zinc-800">Cash</div>
+                  <div className="rounded-lg border-2 border-zinc-200 py-3 text-center text-sm font-medium dark:border-zinc-700">QR</div>
+                </div>
+                <div className="mb-1 text-xs font-medium text-zinc-500">Cash received (leave blank for exact change)</div>
+                <div className="mb-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-400 dark:border-zinc-700">IDR 100,000</div>
+                <div className="text-xs text-zinc-500">
+                  Change due: <span className="font-bold text-emerald-600 dark:text-emerald-400">IDR 46,000</span>
+                </div>
+              </div>
+            }
+          />
+        </Section>
+
+        <Section id="sold-out" eyebrow="Not deleted, just empty" title="Sold out ≠ gone" intro="An item that started the event with stock but has since run out doesn't disappear — it just can't be added anymore, so you can still tell a customer 'yes, we carry that, but we're out.'">
+          <div className="max-w-[110px]">
+            <div className="relative flex aspect-square items-end overflow-hidden rounded-xl border border-zinc-200 bg-white opacity-50 shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
+              <span className="absolute right-1 top-1 rounded-full bg-zinc-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">Out</span>
+              <span className="w-full bg-black/60 px-1 py-1 text-[11px] font-medium text-white">Wrio</span>
+            </div>
+          </div>
+          <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
+            Only an admin can bring more of it in mid-event, from <b>Admin → Events → Add Item to Stock</b>.
+          </p>
         </Section>
       </div>
 
