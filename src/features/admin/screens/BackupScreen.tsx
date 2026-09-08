@@ -12,7 +12,7 @@ import { NumberField, CheckboxField } from '@/components/ui/FormField'
 
 export function BackupScreen() {
   const settings = useLiveQuery(() => db.appSettings.get('singleton'), [], undefined)
-  const autoBackupEnabled = settings?.autoBackupEnabled ?? true
+  const autoBackupEnabled = settings?.autoBackupEnabled ?? false
   const lastBackup = useUiStore((s) => s.lastBackup)
   const clearCart = useCartStore((s) => s.clear)
   const fileInputRef = useRef<HTMLInputElement>(null)

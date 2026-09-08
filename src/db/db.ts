@@ -66,7 +66,7 @@ export const DEFAULT_APP_SETTINGS: AppSettings = {
   currency: 'IDR',
   backupTxnInterval: 5,
   backupMinuteInterval: 15,
-  autoBackupEnabled: true,
+  autoBackupEnabled: false,
 }
 
 /** Ensures the singleton settings row exists. Safe to call on every app boot. */
