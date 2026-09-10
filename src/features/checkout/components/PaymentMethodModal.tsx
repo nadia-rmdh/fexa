@@ -6,6 +6,11 @@ import { Modal } from '@/components/ui/Modal'
 import type { CartLine } from '@/stores/cartStore'
 import type { Transaction } from '@/db/schema-types'
 
+// IDR banknote denominations, in the order a cashier would naturally count them —
+// tapping one adds that note's value, so a market vendor can tally received cash the
+// same way they'd count physical bills, without ever opening the on-screen keyboard.
+const CASH_DENOMINATIONS = [1000, 2000, 5000, 10000, 20000, 50000, 100000]
+
 interface PaymentMethodModalProps {
   eventId: string
   lines: CartLine[]
@@ -28,6 +33,14 @@ export function PaymentMethodModal({ eventId, lines, total, onClose, onComplete 
   const cashInvalid = cashInputTrimmed !== '' && !Number.isFinite(cashReceived)
   const changeDue = cashReceived !== undefined && cashReceived >= total ? cashReceived - total : null
   const cashTooLow = cashReceived !== undefined && Number.isFinite(cashReceived) && cashReceived < total
+
+  function addCash(amount: number) {
+    setCashReceivedInput((prev) => {
+      const current = prev.trim() === '' ? 0 : Number(prev)
+      const base = Number.isFinite(current) ? current : 0
+      return String(base + amount)
+    })
+  }
 
   async function handleConfirm() {
     if (!method) return
@@ -95,9 +108,20 @@ export function PaymentMethodModal({ eventId, lines, total, onClose, onComplete 
 
       {method === 'cash' && (
         <div className="mb-4">
-          <label className="mb-1 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            Cash received (leave blank for exact change)
-          </label>
+          <div className="mb-1 flex items-center justify-between">
+            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+              Cash received (leave blank for exact change)
+            </label>
+            {cashReceivedInput !== '' && (
+              <button
+                type="button"
+                onClick={() => setCashReceivedInput('')}
+                className="text-xs font-medium text-zinc-500 hover:underline dark:text-zinc-400"
+              >
+                Clear
+              </button>
+            )}
+          </div>
           <input
             type="number"
             inputMode="numeric"
@@ -109,6 +133,18 @@ export function PaymentMethodModal({ eventId, lines, total, onClose, onComplete 
             value={cashReceivedInput}
             onChange={(e) => setCashReceivedInput(e.target.value)}
           />
+          <div className="mt-2 grid grid-cols-7 gap-1.5">
+            {CASH_DENOMINATIONS.map((amount) => (
+              <button
+                key={amount}
+                type="button"
+                onClick={() => addCash(amount)}
+                className="rounded-full border border-zinc-300 py-1.5 text-center text-sm font-medium text-zinc-700 active:scale-95 dark:border-zinc-600 dark:text-zinc-200"
+              >
+                +{amount / 1000}
+              </button>
+            ))}
+          </div>
           {changeDue !== null && (
             <p className="mt-2 text-sm text-zinc-500">Change due: {formatMoney(changeDue, 'IDR')}</p>
           )}
