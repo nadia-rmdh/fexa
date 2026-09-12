@@ -170,7 +170,16 @@ function ActiveEventPanel({ eventId, eventName, startedAt }: { eventId: string; 
   async function adjustStock(itemId: string, delta: number) {
     const row = await db.eventInventory.get(`${eventId}_${itemId}`)
     if (!row) return
-    await db.eventInventory.update(row.id, { stockQty: Math.max(0, row.stockQty + delta) })
+    const stockQty = Math.max(0, row.stockQty + delta)
+    // startingQty gates checkout visibility (see useEventStartingStock) — it must never
+    // fall (a sold-out item stays visible-but-disabled, per "Sold Out ≠ Gone"), but it
+    // does need to rise here: an item Start Event left at 0 (deliberately not brought to
+    // this market) has startingQty stuck at 0 forever unless something raises it — this
+    // is that something, for the case where stock actually shows up mid-event and the
+    // operator brings it in the ordinary way, via +, on the item's already-existing row
+    // (as opposed to a brand-new item, which goes through "Add Item to Stock" instead).
+    const startingQty = Math.max(row.startingQty, stockQty)
+    await db.eventInventory.update(row.id, { stockQty, startingQty })
   }
 
   return (
