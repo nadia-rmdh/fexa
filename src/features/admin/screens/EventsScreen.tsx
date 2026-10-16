@@ -162,6 +162,18 @@ function ActiveEventPanel({ eventId, eventName, startedAt }: { eventId: string; 
 
   const nameFor = (id: string, list?: { id: string; name: string }[]) => list?.find((x) => x.id === id)?.name ?? '—'
 
+  const inventoryByItemId = useMemo(() => new Map((inventory ?? []).map((inv) => [inv.itemId, inv])), [inventory])
+  const groupedByCategory = useMemo(
+    () =>
+      groupItemsByCategoryFandom(
+        (items ?? []).filter((item) => inventoryByItemId.has(item.id)),
+        categories ?? [],
+        fandoms ?? [],
+        characters ?? [],
+      ),
+    [items, inventoryByItemId, categories, fandoms, characters],
+  )
+
   async function closeEvent() {
     if (!confirm(`Close "${eventName}"? You can start a new event afterward.`)) return
     await db.events.update(eventId, { status: 'closed', endedAt: Date.now() })
@@ -213,31 +225,44 @@ function ActiveEventPanel({ eventId, eventName, startedAt }: { eventId: string; 
         />
       )}
 
-      <ul className="max-h-96 divide-y divide-zinc-200 overflow-auto dark:divide-zinc-700">
-        {inventory?.map((inv) => {
-          const item = items?.find((i) => i.id === inv.itemId)
-          if (!item) return null
-          const threshold = item.lowStockThreshold ?? settings?.defaultLowStockThreshold ?? 5
-          const low = inv.stockQty <= threshold
-          return (
-            <li key={inv.id} className="flex items-center justify-between py-2 text-sm">
-              <span>
-                {nameFor(item.categoryId, categories)} · {nameFor(item.fandomId, fandoms)} · {nameFor(item.characterId, characters)}
-                {item.variantLabel && <span className="text-zinc-400"> — {item.variantLabel}</span>}
-              </span>
-              <span className="flex items-center gap-2">
-                <span className={low ? 'font-semibold text-amber-600' : ''}>{inv.stockQty} in stock</span>
-                <button type="button" className="rounded bg-zinc-100 px-2 dark:bg-zinc-700" onClick={() => adjustStock(inv.itemId, -1)}>
-                  −
-                </button>
-                <button type="button" className="rounded bg-zinc-100 px-2 dark:bg-zinc-700" onClick={() => adjustStock(inv.itemId, 1)}>
-                  +
-                </button>
-              </span>
-            </li>
-          )
-        })}
-      </ul>
+      <div className="max-h-96 overflow-auto">
+        {groupedByCategory.map((categoryGroup) => (
+          <div key={categoryGroup.categoryId}>
+            <div className="sticky top-0 z-10 bg-zinc-100 px-2 py-1 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+              {categoryGroup.categoryName}
+            </div>
+            {categoryGroup.fandomGroups.map((fandomGroup) => (
+              <div key={fandomGroup.fandomId}>
+                <div className="px-2 pt-2 pb-1 text-sm font-bold text-zinc-800 dark:text-zinc-100">{fandomGroup.fandomName}</div>
+                <ul className="divide-y divide-zinc-200 dark:divide-zinc-700">
+                  {fandomGroup.items.map((item) => {
+                    const inv = inventoryByItemId.get(item.id)!
+                    const threshold = item.lowStockThreshold ?? settings?.defaultLowStockThreshold ?? 5
+                    const low = inv.stockQty <= threshold
+                    return (
+                      <li key={inv.id} className="flex items-center justify-between py-2 pl-4 pr-2 text-sm">
+                        <span>
+                          {nameFor(item.characterId, characters)}
+                          {item.variantLabel && <span className="text-zinc-400"> — {item.variantLabel}</span>}
+                        </span>
+                        <span className="flex items-center gap-2">
+                          <span className={low ? 'font-semibold text-amber-600' : ''}>{inv.stockQty} in stock</span>
+                          <button type="button" className="rounded bg-zinc-100 px-2 dark:bg-zinc-700" onClick={() => adjustStock(inv.itemId, -1)}>
+                            −
+                          </button>
+                          <button type="button" className="rounded bg-zinc-100 px-2 dark:bg-zinc-700" onClick={() => adjustStock(inv.itemId, 1)}>
+                            +
+                          </button>
+                        </span>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
