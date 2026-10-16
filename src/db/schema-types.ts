@@ -48,6 +48,10 @@ export interface ImageBlob {
   id: string
   blob: Blob
   mimeType: string
+  /** true once the blob has been scaled down by resizeImage (or a resize was attempted
+   *  and couldn't improve it) — images saved before resizing existed lack this and get
+   *  shrunk once by optimizeStoredImages() at boot. */
+  optimized?: boolean
 }
 
 // Bundle rules

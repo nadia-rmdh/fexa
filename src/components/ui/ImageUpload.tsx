@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { db } from '@/db/db'
 import { uuid } from '@/lib/uuid'
 import { useImageUrl } from '@/hooks/useImageUrl'
+import { resizeImage } from '@/lib/imageResize'
 
 interface ImageUploadProps {
   label: string
@@ -15,7 +16,12 @@ export function ImageUpload({ label, value, onChange }: ImageUploadProps) {
 
   async function handleFile(file: File) {
     const id = uuid()
-    await db.images.add({ id, blob: file, mimeType: file.type })
+    const resized = await resizeImage(file)
+    await db.images.add(
+      resized
+        ? { id, blob: resized.blob, mimeType: resized.mimeType, optimized: true }
+        : { id, blob: file, mimeType: file.type },
+    )
     onChange(id)
   }
 
